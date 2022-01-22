@@ -1,6 +1,6 @@
 function convertTsToDt(timestamp) {
-    if (!timestamp) {
-        return '';
+    if (!timestamp || !/\d{13}/.test(timestamp)) {
+        return '时间戳不合法';
     }
     var datetime = new Date(parseInt(timestamp));
     var year = datetime.getFullYear();
@@ -22,41 +22,47 @@ function formatNumber(value) {
     return value;
 }
 
-var tsInput = document.getElementById('zy_ts_input');
-var dtInput = document.getElementById('zy_dt_input');
-var tsToDtBtn = document.getElementById('zy_ts_to_dt_btn');
-var dtToTsBtn = document.getElementById('zy_dt_to_ts_btn');
-var currentTimeBtn = document.getElementById('zy_current_time_btn');
+document.addEventListener('DOMContentLoaded', () => {
+    var tsInput = document.getElementById('zy_ts_input');
+    var dtInput = document.getElementById('zy_dt_input');
+    var tsToDtBtn = document.getElementById('zy_ts_to_dt_btn');
+    var dtToTsBtn = document.getElementById('zy_dt_to_ts_btn');
+    var currentTimeBtn = document.getElementById('zy_current_time_btn');
 
-currentTimeBtn.onclick = () => {
-    var now = new Date();
-    var timestamp = now.getTime();
-    tsInput.value = timestamp;
-    dtInput.value = convertTsToDt(timestamp);
-}
+    currentTimeBtn.onclick = () => {
+        var now = new Date();
+        var timestamp = now.getTime();
+        tsInput.value = timestamp;
+        dtInput.value = convertTsToDt(timestamp);
+    }
 
-tsToDtBtn.onclick = () => {
-    var timestamp = tsInput.value;
-    var datetime = convertTsToDt(timestamp);
-    dtInput.value = datetime;
-}
+    tsToDtBtn.onclick = () => {
+        var timestamp = tsInput.value;
+        var datetime = convertTsToDt(timestamp);
+        dtInput.value = datetime;
+    }
 
-dtToTsBtn.onclick = () => {
-    var datetime = dtInput.value.trim();
-    var results = /^(\d{4})-(\d{2})-(\d{2})(?:\s(\d{2})\:(\d{2})\:(\d{2}))?$/.exec(datetime);
-    var year = parseInt(results[1]);
-    var month = parseInt(results[2]);
-    var date = parseInt(results[3]);
-    var hour = parseInt(results[4]) || 0;
-    var minute = parseInt(results[5]) || 0;
-    var second = parseInt(results[6]) || 0;
-    var d = new Date();
-    d.setYear(year);
-    d.setMonth(month - 1);
-    d.setDate(date);
-    d.setHours(hour);
-    d.setMinutes(minute);
-    d.setSeconds(second);
-    d.setMilliseconds(0);
-    tsInput.value = d.getTime();
-}
+    dtToTsBtn.onclick = () => {
+        var datetime = dtInput.value.trim();
+        var results = /^(\d{4})-(\d{2})-(\d{2})(?:\s(\d{2})\:(\d{2})\:(\d{2}))?$/.exec(datetime);
+        if (results == null) {
+            tsInput.value = '日期时间格式不合法';
+        }
+        var year = parseInt(results[1]);
+        var month = parseInt(results[2]);
+        var date = parseInt(results[3]);
+        var hour = parseInt(results[4]) || 0;
+        var minute = parseInt(results[5]) || 0;
+        var second = parseInt(results[6]) || 0;
+        var d = new Date();
+        d.setYear(year);
+        d.setMonth(month - 1);
+        d.setDate(date);
+        d.setHours(hour);
+        d.setMinutes(minute);
+        d.setSeconds(second);
+        d.setMilliseconds(0);
+        tsInput.value = d.getTime();
+    }
+}, false);
+
