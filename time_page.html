@@ -8,7 +8,7 @@
 }
 
 body {
-    width: 300px;
+    width: 320px;
 }
 
 div {
@@ -17,7 +17,7 @@ div {
     margin: 10px;
 }
 #time_area input {
-    width: 250px;
+    width: 280px;
 }
 </style>
 </head>
@@ -38,9 +38,9 @@ div {
         <input id="zy_dt_input" type="text" placeholder="请输入yyyy-MM-dd HH:mm:ss格式时间" />
     </div>
     <div>
-        <button id="zy_truncate_time_btn">&nbsp;+&nbsp;</button>
+        <button id="zy_truncate_time_btn">&nbsp;向下取整&nbsp;</button>
         <button id="zy_minus_time_btn">&nbsp;-&nbsp;</button>
-        <input id="zy_time_delta_input" type="number" value="0" style="width: 50px;" />
+        <input id="zy_time_delta_input" type="number" value="1" style="width: 50px;" />
         <select id="zy_time_unit_select">
             <option value="second">秒</option>
             <option value="minute">分</option>
@@ -51,7 +51,7 @@ div {
             <option value="year">年</option>
         </select>
         <button id="zy_plus_time_btn">&nbsp;+&nbsp;</button>
-        <button id="zy_celing_time_btn">&nbsp;+&nbsp;</button>
+        <button id="zy_ceiling_time_btn">&nbsp;向上取整&nbsp;</button>
     </div>
 </div>
 <script src="js/moment.min.js"></script>
