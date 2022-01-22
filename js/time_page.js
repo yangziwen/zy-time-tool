@@ -1,25 +1,16 @@
-function convertTsToDt(timestamp) {
+function convertTimestampToDatetime(timestamp) {
     if (!timestamp || !/\d{13}/.test(timestamp)) {
         return '时间戳不合法';
     }
-    var datetime = new Date(parseInt(timestamp));
-    var year = datetime.getFullYear();
-    var month = formatNumber(datetime.getMonth() + 1);
-    var date = formatNumber(datetime.getDate());
-    var hour = formatNumber(datetime.getHours());
-    var minute = formatNumber(datetime.getMinutes());
-    var second = formatNumber(datetime.getSeconds());
-    return `${year}-${month}-${date} ${hour}:${minute}:${second}`;
+    return moment(parseInt(timestamp)).format('YYYY-MM-DD HH:mm:ss');
 }
 
-function formatNumber(value) {
-    if (isNaN(value)) {
-        return '';
+function convertDatetimeToTimestamp(datetime) {
+    var results = /^(\d{4})-(\d{2})-(\d{2})(?:\s(\d{2})\:(\d{2})\:(\d{2}))?$/.exec(datetime);
+    if (results == null) {
+        return '日期时间格式不合法';
     }
-    if (value < 10) {
-        return '0' + value;
-    }
-    return value;
+    return moment(datetime).format('x');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -28,41 +19,85 @@ document.addEventListener('DOMContentLoaded', () => {
     var tsToDtBtn = document.getElementById('zy_ts_to_dt_btn');
     var dtToTsBtn = document.getElementById('zy_dt_to_ts_btn');
     var currentTimeBtn = document.getElementById('zy_current_time_btn');
+    var timeDeltaInput = document.getElementById('zy_time_delta_input');
+    var timeUnitSelect = document.getElementById('zy_time_unit_select');
+    var plusTimeBtn = document.getElementById('zy_plus_time_btn');
+    var minusTimeBtn = document.getElementById('zy_minus_time_btn');
+    var ceilingTimeBtn = document.getElementById('zy_ceiling_time_btn');
+    var truncateTimeBtn = document.getElementById('zy_truncate_time_btn');
 
     currentTimeBtn.onclick = () => {
-        var now = new Date();
-        var timestamp = now.getTime();
-        tsInput.value = timestamp;
-        dtInput.value = convertTsToDt(timestamp);
+        var now = moment();
+        tsInput.value = now.format('x');
+        dtInput.value = now.format('YYYY-MM-DD HH:mm:ss');
     }
 
     tsToDtBtn.onclick = () => {
-        var timestamp = tsInput.value;
-        var datetime = convertTsToDt(timestamp);
+        var timestamp = tsInput.value.trim();
+        var datetime = convertTimestampToDatetime(timestamp);
         dtInput.value = datetime;
     }
 
     dtToTsBtn.onclick = () => {
         var datetime = dtInput.value.trim();
-        var results = /^(\d{4})-(\d{2})-(\d{2})(?:\s(\d{2})\:(\d{2})\:(\d{2}))?$/.exec(datetime);
-        if (results == null) {
-            tsInput.value = '日期时间格式不合法';
-        }
-        var year = parseInt(results[1]);
-        var month = parseInt(results[2]);
-        var date = parseInt(results[3]);
-        var hour = parseInt(results[4]) || 0;
-        var minute = parseInt(results[5]) || 0;
-        var second = parseInt(results[6]) || 0;
-        var d = new Date();
-        d.setYear(year);
-        d.setMonth(month - 1);
-        d.setDate(date);
-        d.setHours(hour);
-        d.setMinutes(minute);
-        d.setSeconds(second);
-        d.setMilliseconds(0);
-        tsInput.value = d.getTime();
+        tsInput.value = convertDatetimeToTimestamp(datetime);
     }
+
+    plusTimeBtn.onclick = () => {
+        var delta = parseInt(timeDeltaInput.value || 0);
+        var unit = timeUnitSelect.value;
+        if (delta == 0) {
+            return;
+        }
+        var timestamp = tsInput.value.trim();
+        var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
+        if (/\d{13}/.test(timestamp)) {
+            tsInput.value = moment(parseInt(timestamp)).add(delta, unit + 's').format('x');
+        }
+        if (/\d{13}/.test(datetime)) {
+            dtInput.value = moment(parseInt(datetime)).add(delta, unit + 's').format('YYYY-MM-DD HH:mm:ss');
+        }
+    }
+
+    minusTimeBtn.onclick = () => {
+        var delta = parseInt(timeDeltaInput.value || 0);
+        var unit = timeUnitSelect.value;
+        if (delta == 0) {
+            return;
+        }
+        var timestamp = tsInput.value.trim();
+        var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
+        if (/\d{13}/.test(timestamp)) {
+            tsInput.value = moment(parseInt(timestamp)).subtract(delta, unit + 's').format('x');
+        }
+        if (/\d{13}/.test(datetime)) {
+            dtInput.value = moment(parseInt(datetime)).subtract(delta, unit + 's').format('YYYY-MM-DD HH:mm:ss');
+        }
+    }
+
+    truncateTimeBtn.onclick = () => {
+        var unit = timeUnitSelect.value;
+        var timestamp = tsInput.value.trim();
+        var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
+        if (/\d{13}/.test(timestamp)) {
+            tsInput.value = moment(parseInt(timestamp)).startOf(unit).format('x');
+        }
+        if (/\d{13}/.test(datetime)) {
+            dtInput.value = moment(parseInt(datetime)).startOf(unit).format('YYYY-MM-DD HH:mm:ss');
+        }
+    }
+
+    ceilingTimeBtn.onclick = () => {
+        var unit = timeUnitSelect.value;
+        var timestamp = tsInput.value.trim();
+        var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
+        if (/\d{13}/.test(timestamp)) {
+            tsInput.value = moment(parseInt(timestamp)).endOf(unit).format('x');
+        }
+        if (/\d{13}/.test(datetime)) {
+            dtInput.value = moment(parseInt(datetime)).endOf(unit).format('YYYY-MM-DD HH:mm:ss');
+        }
+    }
+
 }, false);
 

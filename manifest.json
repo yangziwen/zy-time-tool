@@ -24,7 +24,10 @@
     "content_scripts": [
         {
             "matches": ["*://*/*"],
-            "js": ["js/time_page.js"]
+            "js": [
+                "js/moment.min.js",
+                "js/time_page.js"
+            ]
         }
     ],
     "permissions": ["contextMenus"]

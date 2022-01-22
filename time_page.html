@@ -24,20 +24,37 @@ div {
 <body>
 <div id="time_area">
     <div>
+        <button id="zy_current_time_btn">当前时间</button>
+    </div>
+    <div>
         <input id="zy_ts_input" type="text" placeholder="请输入长整型时间戳" />
     </div>
     <div>
-        <button id="zy_ts_to_dt_btn">转日期时间 ↓ </button>
+        <button id="zy_ts_to_dt_btn">&nbsp;↓&nbsp;转日期时间&nbsp;↓&nbsp;</button>
         &nbsp;
-        <button id="zy_dt_to_ts_btn">转时间戳 ↑ </button>
+        <button id="zy_dt_to_ts_btn">&nbsp;↑&nbsp;转时间戳&nbsp;↑&nbsp;</button>
     </div>
     <div>
         <input id="zy_dt_input" type="text" placeholder="请输入yyyy-MM-dd HH:mm:ss格式时间" />
     </div>
     <div>
-        <button id="zy_current_time_btn">当前时间</button>
+        <button id="zy_truncate_time_btn">&nbsp;+&nbsp;</button>
+        <button id="zy_minus_time_btn">&nbsp;-&nbsp;</button>
+        <input id="zy_time_delta_input" type="number" value="0" style="width: 50px;" />
+        <select id="zy_time_unit_select">
+            <option value="second">秒</option>
+            <option value="minute">分</option>
+            <option value="hour">时</option>
+            <option value="day" selected>天</option>
+            <option value="week">周</option>
+            <option value="month">月</option>
+            <option value="year">年</option>
+        </select>
+        <button id="zy_plus_time_btn">&nbsp;+&nbsp;</button>
+        <button id="zy_celing_time_btn">&nbsp;+&nbsp;</button>
     </div>
 </div>
+<script src="js/moment.min.js"></script>
 <script src="js/time_page.js"></script>
 </body>
 </html>
