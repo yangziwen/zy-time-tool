@@ -28,9 +28,11 @@ div {
 <div id="zy_time_area">
     <h3>时间日期工具</h3>
     <div>
-        <button id="zy_current_time_btn">当前的时间</button>
+        <button id="zy_current_time_btn">&nbsp;当前的时间&nbsp;</button>
         &nbsp;
-        <button id="zy_selection_time_btn">选中的时间</button>
+        <button id="zy_selection_time_btn">&nbsp;选中的时间&nbsp;</button>
+        &nbsp;
+        <button id="zy_clear_time_btn">&nbsp;清空时间&nbsp;</button>
     </div>
     <div>
         <input id="zy_ts_input" type="text" placeholder="请输入长整型时间戳" />
@@ -45,8 +47,8 @@ div {
     </div>
     <div>
         <button id="zy_truncate_time_btn">&nbsp;向下取整&nbsp;</button>
-        <button id="zy_minus_time_btn">&nbsp;-&nbsp;</button>
-        <input id="zy_time_delta_input" type="number" value="1" style="width: 50px;" />
+        <button id="zy_minus_time_btn" style="width: 23px; height: 23px;">&nbsp;-&nbsp;</button>
+        <input id="zy_time_delta_input" type="number" value="1" style="width: 45px;" />
         <select id="zy_time_unit_select">
             <option value="second">秒</option>
             <option value="minute">分</option>
@@ -56,7 +58,7 @@ div {
             <option value="month">月</option>
             <option value="year">年</option>
         </select>
-        <button id="zy_plus_time_btn">&nbsp;+&nbsp;</button>
+        <button id="zy_plus_time_btn" style="width: 23px; height: 23px;">&nbsp;+&nbsp;</button>
         <button id="zy_ceiling_time_btn">&nbsp;向上取整&nbsp;</button>
     </div>
 </div>

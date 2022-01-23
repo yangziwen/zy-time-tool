@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var dtToTsBtn = document.getElementById('zy_dt_to_ts_btn');
     var currentTimeBtn = document.getElementById('zy_current_time_btn');
     var selectionTimeBtn = document.getElementById('zy_selection_time_btn');
+    var clearTimeBtn = document.getElementById('zy_clear_time_btn');
     var timeDeltaInput = document.getElementById('zy_time_delta_input');
     var timeUnitSelect = document.getElementById('zy_time_unit_select');
     var plusTimeBtn = document.getElementById('zy_plus_time_btn');
@@ -43,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
             tsInput.value = time.format('x');
             dtInput.value = time.format('YYYY-MM-DD HH:mm:ss');
         });
+    }
+
+    clearTimeBtn.onclick = () => {
+        tsInput.value = '';
+        dtInput.value = '';
     }
 
     tsToDtBtn.onclick = () => {
@@ -110,7 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (/\d{13}/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).endOf(unit).format('YYYY-MM-DD HH:mm:ss');
         }
-    }    
+    }
+
+    selectionTimeBtn.onclick();
 
 }, false);
 
