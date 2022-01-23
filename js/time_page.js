@@ -14,11 +14,13 @@ function convertDatetimeToTimestamp(datetime) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+
     var tsInput = document.getElementById('zy_ts_input');
     var dtInput = document.getElementById('zy_dt_input');
     var tsToDtBtn = document.getElementById('zy_ts_to_dt_btn');
     var dtToTsBtn = document.getElementById('zy_dt_to_ts_btn');
     var currentTimeBtn = document.getElementById('zy_current_time_btn');
+    var selectionTimeBtn = document.getElementById('zy_selection_time_btn');
     var timeDeltaInput = document.getElementById('zy_time_delta_input');
     var timeUnitSelect = document.getElementById('zy_time_unit_select');
     var plusTimeBtn = document.getElementById('zy_plus_time_btn');
@@ -30,6 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
         var now = moment();
         tsInput.value = now.format('x');
         dtInput.value = now.format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    selectionTimeBtn.onclick = () => {
+        chrome.runtime.sendMessage('current_selection_time', (selectionTimestamp) => {
+            if (!selectionTimestamp) {
+                return;
+            }
+            var time = moment(parseInt(selectionTimestamp));
+            tsInput.value = time.format('x');
+            dtInput.value = time.format('YYYY-MM-DD HH:mm:ss');
+        });
     }
 
     tsToDtBtn.onclick = () => {
@@ -97,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (/\d{13}/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).endOf(unit).format('YYYY-MM-DD HH:mm:ss');
         }
-    }
+    }    
 
 }, false);
 
