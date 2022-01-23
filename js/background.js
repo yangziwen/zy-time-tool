@@ -13,7 +13,7 @@ chrome.contextMenus.create({
         var text = info.selectionText.trim();
         if (/^(\d{4})-(\d{2})-(\d{2})(?:\s(\d{2})\:(\d{2})\:(\d{2}))?$/.test(text)) {
             var time = moment(text);
-            var timestamp = moment.format('x');
+            var timestamp = time.format('x');
             var datetime = text;
             alert(`选中时间为 [ ${datetime} ]\n对应的时间戳为 [ ${timestamp} ]`);
             selectionTimestamp = timestamp;
