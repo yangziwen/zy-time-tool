@@ -3,7 +3,7 @@ var selectionTimestamp;
 chrome.contextMenus.create({
     'id':'zy_time_tool_menu',
     'type':'normal',
-    'title':'选取时间',
+    'title':'提取时间信息',
     'contexts':['selection'],
     'onclick': (info) => {
         if (!info || !info.selectionText) {
