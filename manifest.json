@@ -28,6 +28,9 @@
             "js": [
                 "js/moment.min.js",
                 "js/time_page.js"
+            ],
+            "css": [
+                "css/bootstrap.min.css"
             ]
         }
     ],

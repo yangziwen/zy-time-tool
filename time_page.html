@@ -1,6 +1,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
+<link rel="stylesheet" href="css/bootstrap.min.css" >
 <style>
 * {
     margin: 0;
@@ -8,48 +9,51 @@
 }
 
 body {
-    width: 320px;
+    width: 360px;
 }
 
 div {
-    font-size: 14px;
     text-align: center;
     margin: 10px;
+}
+.btn, .form-control {
+    font-size: 12px;
 }
 #zy_time_area {
     margin-bottom: 15px;
 }
 #zy_time_area input {
     width: 280px;
+    margin: auto;
 }
 </style>
 </head>
 <body>
 <div id="zy_time_area">
-    <h3>时间日期工具</h3>
+    <h5><img src="images/icon38.png" style="width: 24px; height: 24px; margin-right: 5px; margin-bottom: 5px;" />时间日期工具</h5>
     <div>
-        <button id="zy_current_time_btn">&nbsp;当前的时间&nbsp;</button>
+        <button id="zy_current_time_btn" class="btn btn-primary btn-sm">当前的时间</button>
         &nbsp;
-        <button id="zy_selection_time_btn">&nbsp;选中的时间&nbsp;</button>
+        <button id="zy_selection_time_btn" class="btn btn-primary btn-sm">选中的时间</button>
         &nbsp;
-        <button id="zy_clear_time_btn">&nbsp;清空时间&nbsp;</button>
+        <button id="zy_clear_time_btn" class="btn btn-primary btn-sm">清空时间</button>
     </div>
     <div>
-        <input id="zy_ts_input" type="text" placeholder="请输入长整型时间戳" />
+        <input id="zy_ts_input" type="text" class="form-control form-control-sm" placeholder="请输入长整型时间戳" />
     </div>
     <div>
-        <button id="zy_ts_to_dt_btn">&nbsp;↓&nbsp;转日期&nbsp;↓&nbsp;</button>
+        <button id="zy_ts_to_dt_btn" class="btn btn-primary btn-sm">↓&nbsp;转日期&nbsp;↓</button>
         &nbsp;
-        <button id="zy_dt_to_ts_btn">&nbsp;↑&nbsp;转时间戳&nbsp;↑&nbsp;</button>
+        <button id="zy_dt_to_ts_btn" class="btn btn-primary btn-sm">↑&nbsp;转时间戳&nbsp;↑</button>
     </div>
     <div>
-        <input id="zy_dt_input" type="text" placeholder="请输入yyyy-MM-dd HH:mm:ss格式时间" />
+        <input id="zy_dt_input" type="text" class="form-control form-control-sm" placeholder="请输入yyyy-MM-dd HH:mm:ss格式时间" />
     </div>
     <div>
-        <button id="zy_truncate_time_btn">&nbsp;向下取整&nbsp;</button>
-        <button id="zy_minus_time_btn" style="width: 23px; height: 23px;">&nbsp;-&nbsp;</button>
-        <input id="zy_time_delta_input" type="number" value="1" style="width: 45px;" />
-        <select id="zy_time_unit_select">
+        <button id="zy_truncate_time_btn" class="btn btn-primary btn-sm">向下取整</button>
+        <button id="zy_minus_time_btn" class="btn btn-primary btn-sm" style="font-size:15px; line-height:70%;height: 28px; width: 28px;">-</button>
+        <input id="zy_time_delta_input" type="number" class="form-control form-control-sm" style="display: inline-block; width: 55px;" value="1"/>
+        <select id="zy_time_unit_select" class="form-control form-control-sm" style="display: inline-block; width: 55px;">
             <option value="second">秒</option>
             <option value="minute">分</option>
             <option value="hour">时</option>
@@ -58,8 +62,8 @@ div {
             <option value="month">月</option>
             <option value="year">年</option>
         </select>
-        <button id="zy_plus_time_btn" style="width: 23px; height: 23px;">&nbsp;+&nbsp;</button>
-        <button id="zy_ceiling_time_btn">&nbsp;向上取整&nbsp;</button>
+        <button id="zy_plus_time_btn" class="btn btn-primary btn-sm" style="font-size:15px; line-height:70%;height: 28px; width: 28px;" >+</button>
+        <button id="zy_ceiling_time_btn" class="btn btn-primary btn-sm">向上取整</button>
     </div>
 </div>
 <script src="js/moment.min.js"></script>
