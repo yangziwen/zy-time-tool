@@ -2,7 +2,7 @@
 ### 介绍
 时间戳与日期格式相互转换的chrome扩展程序。用于日常开发、测试、定位问题时，便捷的完成长整型时间戳与日期时间格式之间的转换，以及时间的加减、取整等操作。
 
-<img src="https://user-images.githubusercontent.com/5212414/151791760-60be751b-17c8-4fe8-b550-b2aa7429b8a6.png" style="width: 800px"/>
+<img src="https://user-images.githubusercontent.com/5212414/151817818-b62c5fbd-bea9-4927-9765-4762b21bf11b.png" style="width: 800px"/>
 
 ### 安装
 * 下载插件 `git clone git@github.com:yangziwen/zy-time-tool.git`
