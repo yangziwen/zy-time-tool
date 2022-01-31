@@ -23,5 +23,5 @@
   <img src="https://user-images.githubusercontent.com/5212414/151816019-80f177b0-effc-430a-ac10-09d70be462b4.png" style="width: 300px"/>
 * 使用右键菜单直接提取页面中选中的时间信息（某些web编辑器改写了浏览器右键默认行为，可能导致无法按此方式提取时间信息）
 
-  <img src="https://user-images.githubusercontent.com/5212414/151808772-e8f60129-6ee0-4ff0-8627-35fcea1a8b9f.png" style="height: 110px"/>
-  <img src="https://user-images.githubusercontent.com/5212414/151808535-7fb94b7a-91bb-4757-b57d-2ad129f962f8.png" style="height: 110px"/>
+  <img src="https://user-images.githubusercontent.com/5212414/151808772-e8f60129-6ee0-4ff0-8627-35fcea1a8b9f.png" style="height: 160px"/>
+  <img src="https://user-images.githubusercontent.com/5212414/151808535-7fb94b7a-91bb-4757-b57d-2ad129f962f8.png" style="height: 160px"/>
