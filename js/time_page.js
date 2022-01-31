@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tsToDtBtn.disabled = true;
             dtToTsBtn.disabled = true;
         }
+        chrome.runtime.sendMessage('current_timestamp_' + tsInput.value);
+        chrome.runtime.sendMessage('current_datetime_' + dtInput.value);
     }
 
     tsInput.onkeyup = inputValuesChanged;
@@ -163,9 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
         inputValuesChanged();
     }
 
-    inputValuesChanged();
-
-    selectionTimeBtn.onclick();
+    chrome.runtime.sendMessage('current_values', ({timestamp, datetime}) => {
+        tsInput.value = timestamp;
+        dtInput.value = datetime;
+        inputValuesChanged();
+    });
 
 }, false);
 

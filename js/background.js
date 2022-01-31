@@ -21,6 +21,8 @@ chrome.contextMenus.create({
             var datetime = text;
             alert(`选中时间为 [ ${datetime} ]\n对应的时间戳为 [ ${timestamp} ]`);
             selectionTimestamp = timestamp;
+            currentTimestamp = timestamp;
+            currentDatetime = timestamp;
             return;
         }
         if (/\d{13}/.test(text)) {
@@ -29,6 +31,8 @@ chrome.contextMenus.create({
             var datetime = time.format('YYYY-MM-DD HH:mm:ss');
             alert(`选中的时间戳为 [ ${timestamp} ]\n对应的时间为 [ ${datetime} ]`);
             selectionTimestamp = timestamp;
+            currentTimestamp = timestamp;
+            currentDatetime = timestamp;
             return;
         }
         
@@ -50,12 +54,10 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
         currentDatetime = message.replace('current_datetime_', '');
         return;
     }
-    if (message == 'current_timestamp') {
-        sendResponse(currentTimestamp);
-        return;
-    }
-    if (message == 'current_datetime') {
-        sendResponse(currentDatetime);
-        return;
+    if (message === 'current_values') {
+        sendResponse({
+            timestamp: currentTimestamp,
+            datetime: currentDatetime
+        });
     }
 });
