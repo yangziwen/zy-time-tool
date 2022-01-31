@@ -1,5 +1,9 @@
 var selectionTimestamp;
 
+var currentTimestamp = '';
+
+var currentDatetime = '';
+
 chrome.contextMenus.create({
     'id':'zy_time_tool_menu',
     'type':'normal',
@@ -36,5 +40,22 @@ chrome.contextMenus.create({
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
     if (message == 'current_selection_time') {
         sendResponse(selectionTimestamp);
+        return;
+    }
+    if (message.startsWith('current_timestamp_')) {
+        currentTimestamp = message.replace('current_timestamp_', '');
+        return;
+    }
+    if (message.startsWith('current_datetime_')) {
+        currentDatetime = message.replace('current_datetime_', '');
+        return;
+    }
+    if (message == 'current_timestamp') {
+        sendResponse(currentTimestamp);
+        return;
+    }
+    if (message == 'current_datetime') {
+        sendResponse(currentDatetime);
+        return;
     }
 });

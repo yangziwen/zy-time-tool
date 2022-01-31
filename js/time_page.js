@@ -1,5 +1,5 @@
 function convertTimestampToDatetime(timestamp) {
-    if (!timestamp || !/\d{13}/.test(timestamp)) {
+    if (!timestamp || !/^\d{13}$/.test(timestamp.trim())) {
         return '时间戳不合法';
     }
     return moment(parseInt(timestamp)).format('YYYY-MM-DD HH:mm:ss');
@@ -29,10 +29,47 @@ document.addEventListener('DOMContentLoaded', () => {
     var ceilingTimeBtn = document.getElementById('zy_ceiling_time_btn');
     var truncateTimeBtn = document.getElementById('zy_truncate_time_btn');
 
+    var inputValuesChanged = () => {
+        var timestamp = tsInput.value.trim();
+        var datetime = convertDatetimeToTimestamp(dtInput.value.trim())
+        var timestampAcceptable = /^\d{13}$/.test(timestamp);
+        var datetimeAcceptable = /^\d{13}$/.test(datetime);
+        if (timestampAcceptable && datetimeAcceptable) {
+            if (timestamp === datetime) {
+                tsToDtBtn.disabled = true;
+                dtToTsBtn.disabled = true;
+            } else if (timestamp.substring(0, 10) + '000' == datetime) {
+                tsToDtBtn.disabled = true;
+                dtToTsBtn.disabled = false;
+            }else {
+                tsToDtBtn.disabled = false;
+                dtToTsBtn.disabled = false;
+            }
+        } else if (timestampAcceptable && !datetimeAcceptable) {
+            tsToDtBtn.disabled = false;
+            dtToTsBtn.disabled = true;
+        } else if (!timestampAcceptable && datetimeAcceptable) {
+            tsToDtBtn.disabled = true;
+            dtToTsBtn.disabled = false;
+        } else if (!timestampAcceptable && !datetimeAcceptable) {
+            tsToDtBtn.disabled = true;
+            dtToTsBtn.disabled = true;
+        }
+    }
+
+    tsInput.onkeyup = inputValuesChanged;
+
+    tsInput.onchange = inputValuesChanged;
+
+    dtInput.onkeyup = inputValuesChanged;
+
+    dtInput.onchange = inputValuesChanged;
+
     currentTimeBtn.onclick = () => {
         var now = moment();
         tsInput.value = now.format('x');
         dtInput.value = now.format('YYYY-MM-DD HH:mm:ss');
+        inputValuesChanged();
     }
 
     selectionTimeBtn.onclick = () => {
@@ -43,23 +80,27 @@ document.addEventListener('DOMContentLoaded', () => {
             var time = moment(parseInt(selectionTimestamp));
             tsInput.value = time.format('x');
             dtInput.value = time.format('YYYY-MM-DD HH:mm:ss');
+            inputValuesChanged();
         });
     }
 
     clearTimeBtn.onclick = () => {
         tsInput.value = '';
         dtInput.value = '';
+        inputValuesChanged();
     }
 
     tsToDtBtn.onclick = () => {
         var timestamp = tsInput.value.trim();
         var datetime = convertTimestampToDatetime(timestamp);
         dtInput.value = datetime;
+        inputValuesChanged();
     }
 
     dtToTsBtn.onclick = () => {
         var datetime = dtInput.value.trim();
         tsInput.value = convertDatetimeToTimestamp(datetime);
+        inputValuesChanged();
     }
 
     plusTimeBtn.onclick = () => {
@@ -76,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (/\d{13}/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).add(delta, unit + 's').format('YYYY-MM-DD HH:mm:ss');
         }
+        inputValuesChanged();
     }
 
     minusTimeBtn.onclick = () => {
@@ -92,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (/\d{13}/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).subtract(delta, unit + 's').format('YYYY-MM-DD HH:mm:ss');
         }
+        inputValuesChanged();
     }
 
     truncateTimeBtn.onclick = () => {
@@ -104,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (/\d{13}/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).startOf(unit).format('YYYY-MM-DD HH:mm:ss');
         }
+        inputValuesChanged();
     }
 
     ceilingTimeBtn.onclick = () => {
@@ -116,7 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (/\d{13}/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).endOf(unit).format('YYYY-MM-DD HH:mm:ss');
         }
+        inputValuesChanged();
     }
+
+    inputValuesChanged();
 
     selectionTimeBtn.onclick();
 
