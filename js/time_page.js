@@ -113,10 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         var timestamp = tsInput.value.trim();
         var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
-        if (/\d{13}/.test(timestamp)) {
+        if (/^\d{13}$/.test(timestamp)) {
             tsInput.value = moment(parseInt(timestamp)).add(delta, unit + 's').format('x');
         }
-        if (/\d{13}/.test(datetime)) {
+        if (/^\d{13}$/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).add(delta, unit + 's').format('YYYY-MM-DD HH:mm:ss');
         }
         inputValuesChanged();
@@ -130,10 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         var timestamp = tsInput.value.trim();
         var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
-        if (/\d{13}/.test(timestamp)) {
+        if (/^\d{13}$/.test(timestamp)) {
             tsInput.value = moment(parseInt(timestamp)).subtract(delta, unit + 's').format('x');
         }
-        if (/\d{13}/.test(datetime)) {
+        if (/^\d{13}$/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).subtract(delta, unit + 's').format('YYYY-MM-DD HH:mm:ss');
         }
         inputValuesChanged();
@@ -143,10 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
         var unit = timeUnitSelect.value;
         var timestamp = tsInput.value.trim();
         var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
-        if (/\d{13}/.test(timestamp)) {
+        if (/^\d{13}$/.test(timestamp)) {
             tsInput.value = moment(parseInt(timestamp)).startOf(unit).format('x');
         }
-        if (/\d{13}/.test(datetime)) {
+        if (/^\d{13}$/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).startOf(unit).format('YYYY-MM-DD HH:mm:ss');
         }
         inputValuesChanged();
@@ -156,10 +156,10 @@ document.addEventListener('DOMContentLoaded', () => {
         var unit = timeUnitSelect.value;
         var timestamp = tsInput.value.trim();
         var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
-        if (/\d{13}/.test(timestamp)) {
+        if (/^\d{13}$/.test(timestamp)) {
             tsInput.value = moment(parseInt(timestamp)).endOf(unit).format('x');
         }
-        if (/\d{13}/.test(datetime)) {
+        if (/^\d{13}$/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).endOf(unit).format('YYYY-MM-DD HH:mm:ss');
         }
         inputValuesChanged();
