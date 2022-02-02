@@ -22,7 +22,7 @@ chrome.contextMenus.create({
             alert(`选中时间为 [ ${datetime} ]\n对应的时间戳为 [ ${timestamp} ]`);
             selectionTimestamp = timestamp;
             currentTimestamp = timestamp;
-            currentDatetime = timestamp;
+            currentDatetime = datetime;
             return;
         }
         if (/^\d{13}$/.test(text)) {
@@ -32,7 +32,7 @@ chrome.contextMenus.create({
             alert(`选中的时间戳为 [ ${timestamp} ]\n对应的时间为 [ ${datetime} ]`);
             selectionTimestamp = timestamp;
             currentTimestamp = timestamp;
-            currentDatetime = timestamp;
+            currentDatetime = datetime;
             return;
         }
         
