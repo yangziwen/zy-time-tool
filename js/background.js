@@ -25,7 +25,7 @@ chrome.contextMenus.create({
             currentDatetime = datetime;
             return;
         }
-        if (/^\d{13}$/.test(text)) {
+        if (/^\d+$/.test(text)) {
             var time = moment(parseInt(text));
             var timestamp = text;
             var datetime = time.format('YYYY-MM-DD HH:mm:ss');

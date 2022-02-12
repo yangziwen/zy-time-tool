@@ -1,5 +1,5 @@
 function convertTimestampToDatetime(timestamp) {
-    if (!timestamp || !/^\d{13}$/.test(timestamp.trim())) {
+    if (!timestamp || !/^\d+$/.test(timestamp.trim())) {
         return '时间戳不合法';
     }
     return moment(parseInt(timestamp)).format('YYYY-MM-DD HH:mm:ss');
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var inputValuesChanged = () => {
         var timestamp = tsInput.value.trim();
         var datetime = convertDatetimeToTimestamp(dtInput.value.trim())
-        var timestampAcceptable = /^\d{13}$/.test(timestamp);
-        var datetimeAcceptable = /^\d{13}$/.test(datetime);
+        var timestampAcceptable = /^\d+$/.test(timestamp);
+        var datetimeAcceptable = /^\d+$/.test(datetime);
         if (timestampAcceptable && datetimeAcceptable) {
             if (timestamp === datetime) {
                 tsToDtBtn.disabled = true;
@@ -113,10 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         var timestamp = tsInput.value.trim();
         var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
-        if (/^\d{13}$/.test(timestamp)) {
+        if (/^\d+$/.test(timestamp)) {
             tsInput.value = moment(parseInt(timestamp)).add(delta, unit + 's').format('x');
         }
-        if (/^\d{13}$/.test(datetime)) {
+        if (/^\d+$/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).add(delta, unit + 's').format('YYYY-MM-DD HH:mm:ss');
         }
         inputValuesChanged();
@@ -130,10 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         var timestamp = tsInput.value.trim();
         var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
-        if (/^\d{13}$/.test(timestamp)) {
+        if (/^\d+$/.test(timestamp)) {
             tsInput.value = moment(parseInt(timestamp)).subtract(delta, unit + 's').format('x');
         }
-        if (/^\d{13}$/.test(datetime)) {
+        if (/^\d+$/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).subtract(delta, unit + 's').format('YYYY-MM-DD HH:mm:ss');
         }
         inputValuesChanged();
@@ -143,10 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
         var unit = timeUnitSelect.value;
         var timestamp = tsInput.value.trim();
         var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
-        if (/^\d{13}$/.test(timestamp)) {
+        if (/^\d+$/.test(timestamp)) {
             tsInput.value = moment(parseInt(timestamp)).startOf(unit).format('x');
         }
-        if (/^\d{13}$/.test(datetime)) {
+        if (/^\d+$/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).startOf(unit).format('YYYY-MM-DD HH:mm:ss');
         }
         inputValuesChanged();
@@ -156,10 +156,10 @@ document.addEventListener('DOMContentLoaded', () => {
         var unit = timeUnitSelect.value;
         var timestamp = tsInput.value.trim();
         var datetime = convertDatetimeToTimestamp(dtInput.value.trim());
-        if (/^\d{13}$/.test(timestamp)) {
+        if (/^\d+$/.test(timestamp)) {
             tsInput.value = moment(parseInt(timestamp)).endOf(unit).format('x');
         }
-        if (/^\d{13}$/.test(datetime)) {
+        if (/^\d+$/.test(datetime)) {
             dtInput.value = moment(parseInt(datetime)).endOf(unit).format('YYYY-MM-DD HH:mm:ss');
         }
         inputValuesChanged();
