@@ -1,5 +1,5 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "zy-time-tool",
     "version": "0.1",
     "description": "时间日期工具",
@@ -8,27 +8,25 @@
         "48": "images/icon48.png",
         "128": "images/icon128.png"
     },
-    "browser_action": {
+    "action": {
+        "default_popup": "time_page.html",
         "default_icon": {
-            "19": "images/icon19.png",
-            "38": "images/icon38.png"
-        },
-        "default_title": "时间日期工具",
-        "default_popup": "time_page.html"
+            "16": "images/icon16.png",
+            "48": "images/icon48.png",
+            "128": "images/icon128.png"
+        }
     },
     "background": {
-        "scripts": [
-            "js/moment.min.js",
-            "js/background.js"
-        ]
+        "service_worker": "js/background.js"
     },
     "content_scripts": [
         {
-            "matches": ["*://*/*"],
-            "js": [
-                "js/time_page.js"
-            ]
+            "matches": ["<all_urls>"],
+            "js": ["js/time_page.js"]
         }
     ],
-    "permissions": ["contextMenus"]
+    "permissions": [
+        "contextMenus",
+        "activeTab"
+    ]
 }
