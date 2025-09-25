@@ -5,7 +5,7 @@
 <img src="https://user-images.githubusercontent.com/5212414/151817818-b62c5fbd-bea9-4927-9765-4762b21bf11b.png" style="width: 800px"/>
 
 ### 安装
-* 下载插件 `git clone git@github.com:yangziwen/zy-time-tool.git`
+* 下载插件 `git clone https://github.com/yangziwen/zy-time-tool.git`
 * chrome浏览器切换到开发者模式安装插件
   
   <img src="https://user-images.githubusercontent.com/5212414/151792576-5b489389-6924-4017-bcb6-7372e5dc7444.png" style="width: 300px">
