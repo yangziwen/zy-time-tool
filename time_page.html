@@ -16,15 +16,31 @@ div {
     text-align: center;
     margin: 10px;
 }
+
 .btn, .form-control {
     font-size: 12px;
 }
+
 #zy_time_area {
     margin-bottom: 15px;
 }
-#zy_time_area input {
+
+#zy_time_area input, #zy_time_area textarea {
     width: 280px;
     margin: auto;
+}
+
+#zy_time_area textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+.batch-mode #zy_time_area textarea {
+    height: 120px;
+}
+
+.hidden {
+    display: none !important;
 }
 </style>
 </head>
@@ -60,14 +76,21 @@ div {
     <div>
         <input id="zy_ts_input" type="text" class="form-control form-control-sm"
                placeholder="请输入长整型时间戳"/>
+        <textarea id="zy_ts_input_batch" class="form-control form-control-sm hidden"
+                  placeholder="请输入多个长整型时间戳（每行一个）"></textarea>
     </div>
     <div>
         <button id="zy_ts_to_dt_btn" class="btn btn-primary btn-sm">↓&nbsp;转日期&nbsp;↓</button>
         &nbsp;
         <button id="zy_dt_to_ts_btn" class="btn btn-primary btn-sm">↑&nbsp;转时间戳&nbsp;↑</button>
+        &nbsp;
+        <button id="zy_batch_mode_btn" class="btn btn-primary btn-sm">批量模式</button>
     </div>
     <div>
-        <input id="zy_dt_input" type="text" class="form-control form-control-sm" placeholder="请输入yyyy-MM-dd HH:mm:ss格式时间" />
+        <input id="zy_dt_input" type="text" class="form-control form-control-sm"
+               placeholder="请输入yyyy-MM-dd HH:mm:ss格式时间"/>
+        <textarea id="zy_dt_input_batch" class="form-control form-control-sm hidden"
+                  placeholder="请输入多个时间（每行一个，格式: yyyy-MM-dd HH:mm:ss）"></textarea>
     </div>
     <div>
         <button id="zy_truncate_time_btn" class="btn btn-primary btn-sm">向下取整</button>
