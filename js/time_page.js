@@ -74,9 +74,16 @@ document.addEventListener('DOMContentLoaded', () => {
         chrome.runtime.sendMessage('current_datetime_' + dtInput.value);
     }
 
-    // 时区变化时，更新日期时间显示
+    // 保存时区设置到 chrome.storage
+    var saveTimezone = (timezone) => {
+        chrome.storage.local.set({ selectedTimezone: timezone });
+    };
+
+    // 时区变化时，更新日期时间显示并保存时区设置
     timezoneSelect.onchange = () => {
         var timezone = getSelectedTimezone();
+        // 保存时区设置
+        saveTimezone(timezone);
         var timestamp = tsInput.value.trim();
         // 如果时间戳有效，重新转换为当前时区的日期时间
         if (/^\d+$/.test(timestamp)) {
@@ -175,12 +182,11 @@ document.addEventListener('DOMContentLoaded', () => {
         var timezone = getSelectedTimezone();
         var unit = timeUnitSelect.value;
         var timestamp = tsInput.value.trim();
-        var datetime = convertDatetimeToTimestamp(dtInput.value.trim(), timezone);
         if (/^\d+$/.test(timestamp)) {
-            tsInput.value = moment(parseInt(timestamp)).startOf(unit).format('x');
-        }
-        if (/^\d+$/.test(datetime)) {
-            dtInput.value = moment(parseInt(datetime)).tz(timezone).startOf(unit).format('YYYY-MM-DD HH:mm:ss');
+            // 先转换到目标时区，再执行向下取整
+            var tzTime = moment(parseInt(timestamp)).tz(timezone).startOf(unit);
+            tsInput.value = tzTime.format('x');
+            dtInput.value = tzTime.format('YYYY-MM-DD HH:mm:ss');
         }
         inputValuesChanged();
     }
@@ -189,15 +195,21 @@ document.addEventListener('DOMContentLoaded', () => {
         var timezone = getSelectedTimezone();
         var unit = timeUnitSelect.value;
         var timestamp = tsInput.value.trim();
-        var datetime = convertDatetimeToTimestamp(dtInput.value.trim(), timezone);
         if (/^\d+$/.test(timestamp)) {
-            tsInput.value = moment(parseInt(timestamp)).endOf(unit).format('x');
-        }
-        if (/^\d+$/.test(datetime)) {
-            dtInput.value = moment(parseInt(datetime)).tz(timezone).endOf(unit).format('YYYY-MM-DD HH:mm:ss');
+            // 先转换到目标时区，再执行向上取整
+            var tzTime = moment(parseInt(timestamp)).tz(timezone).endOf(unit);
+            tsInput.value = tzTime.format('x');
+            dtInput.value = tzTime.format('YYYY-MM-DD HH:mm:ss');
         }
         inputValuesChanged();
     }
+
+    // 恢复保存的时区设置
+    chrome.storage.local.get(['selectedTimezone'], (result) => {
+        if (result.selectedTimezone) {
+            timezoneSelect.value = result.selectedTimezone;
+        }
+    });
 
     chrome.runtime.sendMessage('current_values', ({timestamp, datetime}) => {
         tsInput.value = timestamp;

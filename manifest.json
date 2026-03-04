@@ -27,6 +27,7 @@
     ],
     "permissions": [
         "contextMenus",
-        "activeTab"
+        "activeTab",
+        "storage"
     ]
 }
