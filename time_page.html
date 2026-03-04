@@ -30,7 +30,26 @@ div {
 </head>
 <body>
 <div id="zy_time_area">
-    <h5><img src="images/icon38.png" style="width: 24px; height: 24px; margin-right: 5px; margin-bottom: 5px;" />时间日期工具</h5>
+    <h5><img src="images/icon38.png"
+             style="width: 24px; height: 24px; margin-right: 5px; margin-bottom: 5px;"/>时间日期工具</h5>
+    <div>
+        <label style="font-size: 12px;">时区：</label>
+        <select id="zy_timezone_select" class="form-control form-control-sm"
+                style="display: inline-block; width: 200px;">
+            <option value="Asia/Shanghai">中国标准时间 (UTC+8)</option>
+            <option value="UTC">协调世界时 (UTC)</option>
+            <option value="Europe/Paris">巴黎时间 (UTC+1)</option>
+            <option value="Africa/Cairo">开罗时间 (UTC+2)</option>
+            <option value="Asia/Riyadh">利雅得时间 (UTC+3)</option>
+            <option value="Asia/Dubai">迪拜时间 (UTC+4)</option>
+            <option value="Asia/Karachi">卡拉奇时间 (UTC+5)</option>
+            <option value="Asia/Bangkok">曼谷时间 (UTC+7)</option>
+            <option value="Asia/Tokyo">东京时间 (UTC+9)</option>
+            <option value="Australia/Sydney">悉尼时间 (UTC+10)</option>
+            <option value="America/New_York">纽约时间 (UTC-5)</option>
+            <option value="America/Los_Angeles">洛杉矶时间 (UTC-8)</option>
+        </select>
+    </div>
     <div>
         <button id="zy_current_time_btn" class="btn btn-primary btn-sm">当前的时间</button>
         &nbsp;
@@ -39,7 +58,8 @@ div {
         <button id="zy_clear_time_btn" class="btn btn-primary btn-sm">清空时间</button>
     </div>
     <div>
-        <input id="zy_ts_input" type="text" class="form-control form-control-sm" placeholder="请输入长整型时间戳" />
+        <input id="zy_ts_input" type="text" class="form-control form-control-sm"
+               placeholder="请输入长整型时间戳"/>
     </div>
     <div>
         <button id="zy_ts_to_dt_btn" class="btn btn-primary btn-sm">↓&nbsp;转日期&nbsp;↓</button>
