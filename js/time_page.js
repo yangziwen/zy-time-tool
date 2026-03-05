@@ -80,6 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.add('batch-mode');
             batchModeBtn.textContent = '单条模式';
 
+            // 取消高度设置，让内容自适应
+            document.body.style.height = '';
+            document.documentElement.style.height = '';
+
             // 隐藏单条输入框，显示批量输入框
             tsInput.classList.add('hidden');
             tsInputBatch.classList.remove('hidden');
@@ -96,6 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             document.body.classList.remove('batch-mode');
             batchModeBtn.textContent = '批量模式';
+
+            // 设置单条模式下的固定高度
+            document.body.style.height = '261px';
+            document.documentElement.style.height = '286px';
 
             // 显示单条输入框，隐藏批量输入框
             tsInput.classList.remove('hidden');
