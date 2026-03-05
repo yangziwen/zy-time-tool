@@ -22,15 +22,15 @@
 ### 使用
 * 在插件弹出页面中输入时间信息，进行转换、加减、取整等操作
 
-<kbd>
-  <img src="https://github.com/user-attachments/assets/583c6824-baa5-4cff-8928-dc6a73d59e1d" style="width: 300px;" />
-</kbd>
+    <kbd>
+      <img src="https://github.com/user-attachments/assets/bd26afad-31c2-4e96-85c8-dbcfed3bca9e" style="width: 300px;" />
+    </kbd>
 
 * 支持切换时区，切换“批量模式”等操作
 
-<kbd>
-  <img src="https://github.com/user-attachments/assets/de26d23e-46bc-42c1-83dd-53064d45d2e0" style="width: 300px;" />
-</kbd>
+    <kbd>
+      <img src="https://github.com/user-attachments/assets/6b33dc1a-1a3e-4f2d-b043-03abd9f17713" style="width: 300px;" />
+    </kbd>
 
 * 使用右键菜单直接提取页面中选中的时间信息（某些web编辑器改写了浏览器右键默认行为，可能导致无法按此方式提取时间信息）
 
