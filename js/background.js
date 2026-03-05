@@ -1,4 +1,3 @@
-var selectionTimestamp;
 var currentTimestamp = '';
 var currentDatetime = '';
 
@@ -25,12 +24,17 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
         var date = new Date(text);
         var timestamp = date.getTime().toString();
         var datetime = text;
-        selectionTimestamp = timestamp;
+
+        // 保存到 storage，防止 Service Worker 终止后丢失
+        chrome.storage.local.set({
+            selectionTimestamp: timestamp,
+            selectionDatetime: datetime
+        });
         currentTimestamp = timestamp;
         currentDatetime = datetime;
 
         // 通知用户 - 通过 content script
-        notifyUser(tab.id, `选中时间为 [ ${datetime} ]\n对应的时间戳为 [ ${timestamp} ]`);
+        notifyUser(tab.id, '选中时间为 [ ' + datetime + ' ]\n对应的时间戳为 [ ' + timestamp + ' ]');
         return;
     }
 
@@ -44,19 +48,23 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
         var hours = String(date.getHours()).padStart(2, '0');
         var minutes = String(date.getMinutes()).padStart(2, '0');
         var seconds = String(date.getSeconds()).padStart(2, '0');
-        var datetime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        var datetime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
-        selectionTimestamp = timestamp;
+        // 保存到 storage
+        chrome.storage.local.set({
+            selectionTimestamp: timestamp,
+            selectionDatetime: datetime
+        });
         currentTimestamp = timestamp;
         currentDatetime = datetime;
 
         // 通知用户
-        notifyUser(tab.id, `选中的时间戳为 [ ${timestamp} ]\n对应的时间为 [ ${datetime} ]`);
+        notifyUser(tab.id, '选中的时间戳为 [ ' + timestamp + ' ]\n对应的时间为 [ ' + datetime + ' ]');
         return;
     }
 
     // 不是时间格式
-    notifyUser(tab.id, `选中的内容 [ ${text} ] 不是时间信息`);
+    notifyUser(tab.id, '选中的内容 [ ' + text + ' ] 不是时间信息');
 });
 
 // 通过 content script 通知用户
@@ -74,8 +82,11 @@ function notifyUser(tabId, message) {
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message == 'current_selection_time') {
-        sendResponse(selectionTimestamp);
-        return;
+        // 从 storage 读取选中的时间戳
+        chrome.storage.local.get(['selectionTimestamp'], function(result) {
+            sendResponse(result.selectionTimestamp);
+        });
+        return true; // 异步响应需要返回 true
     }
     if (message.startsWith('current_timestamp_')) {
         currentTimestamp = message.replace('current_timestamp_', '');
