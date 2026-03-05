@@ -116,6 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
             dtInput.value = dtLines[0] || '';
         }
 
+        // 保存批量模式设置
+        saveBatchMode(isBatchMode);
         inputValuesChanged();
     }
 
@@ -162,6 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 保存时区设置到 chrome.storage
     function saveTimezone(timezone) {
         chrome.storage.local.set({ selectedTimezone: timezone });
+    }
+
+    // 保存批量模式设置到 chrome.storage
+    function saveBatchMode(batchMode) {
+        chrome.storage.local.set({ isBatchMode: batchMode });
     }
 
     // 时区变化时，更新日期时间显示并保存时区设置
@@ -423,10 +430,16 @@ document.addEventListener('DOMContentLoaded', () => {
         inputValuesChanged();
     }
 
-    // 恢复保存的时区设置
-    chrome.storage.local.get(['selectedTimezone'], function(result) {
+    // 恢复保存的时区和批量模式设置
+    chrome.storage.local.get(['selectedTimezone', 'isBatchMode'], function(result) {
         if (result.selectedTimezone) {
             timezoneSelect.value = result.selectedTimezone;
+        }
+        // 恢复批量模式
+        if (result.isBatchMode) {
+            // 直接触发切换到批量模式
+            isBatchMode = false; // 先设为 false，这样 toggleBatchMode 会切换到 true
+            toggleBatchMode();
         }
     });
 
